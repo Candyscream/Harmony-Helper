@@ -25,8 +25,7 @@ namespace Harmony_Helper
     public sealed partial class MainPage : Page
     {
         ObservableCollection<NoteData> Notes = Harmony.AllNotes;
-        Harmony reference = new Harmony(Harmony.Note.C);
-        Harmony mine = new Harmony(Harmony.Note.A);
+        Harmony reference = new Harmony(NoteData.NoteIndeces["A"], MusicalScale.Minor);
         public MainPage()
         {
             this.InitializeComponent();

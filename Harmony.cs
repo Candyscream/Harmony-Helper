@@ -34,35 +34,19 @@ namespace Harmony_Helper
             { 2, "##" }
             };
 
-        public enum Note
-        {
-            A,
-            B,
-            C,
-            D,
-            E,
-            F,
-            G
-        };
-
-        Note GetNote(int index)
-        {
-            return (Note)(index % 7);
-        }
-
         public ObservableCollection<HarmonyNode> Nodes = new ObservableCollection<HarmonyNode>();
         public ObservableCollection<string> Scale = new ObservableCollection<string>();
         private int[] baseScale;
 
 
-        public Harmony(Note mean = Note.C, bool minor = false)
+        public Harmony(int meanIndex, int[] scale)
         {
-            baseScale = minor ? MusicalScale.Minor : MusicalScale.Major;
+            baseScale = scale;
+            var meanNote = new NoteData(meanIndex);
+            int degree = 0;
             foreach (int ii in MusicalScale.ToValue(baseScale))
             {
-                var note = GetNote((int)mean + ii);
-                Nodes.Add(new HarmonyNode(note, 0, minor));
-                Scale.Add("" + ii);
+                Nodes.Add(new HarmonyNode(meanNote, degree++, baseScale));
             }
         }
 

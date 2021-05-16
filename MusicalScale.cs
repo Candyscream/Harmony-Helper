@@ -2,15 +2,22 @@
 {
     public static class MusicalScale
     {
-        public static int[] Aeolian = new int[] { 1, 2, 1, 1, 2, 1, 1 };
-        public static int[] Locrian = new int[] { 2, 1, 1, 2, 1, 1, 1 };
-        public static int[] Ionian = new int[] { 1, 1, 2, 1, 1, 2, 1 };
-        public static int[] Dorian = new int[] { 1, 2, 1, 1, 1, 2, 1 };
-        public static int[] Phrygian = new int[] { 1, 2, 1, 1, 1, 2, 1 };
-        public static int[] Lydian = new int[] { 1, 2, 1, 1, 1, 2, 1 };
-        public static int[] Mixolydian = new int[] { 1, 2, 1, 1, 1, 2, 1 };
+        static int T = 2; //Tone
+        static int S = 1; //Semi-Tone
+        static int A = 3; //Augmented second
+        public static int[] Ionian = new int[] { T, T, S, T, T, T, S };
+        public static int[] Dorian = new int[] { T, S, T, T, T, S, T };
+        public static int[] Phrygian = new int[] { S, T, T, T, S, T, T };
+        public static int[] Lydian = new int[] { T, T, T, S, T, T, S };
+        public static int[] Mixolydian = new int[] { T, T, S, T, T, S, T };
+        public static int[] Aeolian = new int[] { T, S, T, T, S, T, T };
+        public static int[] Locrian = new int[] { S, T, T, S, T, T, T };
         public static int[] Minor = Aeolian;
         public static int[] Major = Ionian;
+
+        public static int[] HM_I = new int[] { T, S, T, T, A, S, T };
+
+
 
         public static int[] ToValue(int[] scale)
         {

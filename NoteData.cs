@@ -5,7 +5,7 @@ namespace Harmony_Helper
 {
     public class NoteData
     {
-        private static Dictionary<int, string> m_noteNames = new Dictionary<int, string>()
+        public static readonly Dictionary<int, string> NoteNames = new Dictionary<int, string>()
         {
             { 0, "C" },
             { 1, "C#/Db" },
@@ -21,6 +21,31 @@ namespace Harmony_Helper
             { 11, "B" },
         };
 
+        public static readonly Dictionary<string, int> NoteIndeces = new Dictionary<string, int>()
+        {
+            { "C", 0 },
+            { "C#/Db", 1 },
+            { "C#", 1 },
+            { "Db", 1 },
+            { "D", 2 },
+            { "D#/Eb", 3 },
+            { "D#", 3 },
+            { "Eb", 3 },
+            { "E", 4 },
+            { "F", 5 },
+            { "F#/Gb", 6 },
+            { "F#", 6 },
+            { "Gb", 6 },
+            { "G", 7 },
+            { "G#/Ab", 8 },
+            { "G#", 8 },
+            { "Ab", 8 },
+            { "A", 9 },
+            { "A#/Bb", 10 },
+            { "A#", 10 },
+            { "Bb", 10 },
+            { "B", 11 },
+        };
         public NoteData(int idx)
         {
             Index = idx;
@@ -39,7 +64,7 @@ namespace Harmony_Helper
                 int idx = Index;
                 if (Index < 0)
                     idx += 12 * -Octave;
-                return $"{m_noteNames[idx % 12]}";
+                return $"{NoteNames[idx % 12]}";
             }
         }
 
