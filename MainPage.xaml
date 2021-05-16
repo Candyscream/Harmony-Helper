@@ -8,12 +8,12 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Border>
-        <ListBox ItemsSource="{x:Bind reference.Nodes}">
+        <ListBox ItemsSource="{x:Bind Notes}">
             <ListBox.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="local:NoteData">
                     <StackPanel Margin="4">
-                        <TextBlock Text="{Binding BaseNote}"/>
-                        <TextBlock Text="{Binding Chord}"/>
+                        <TextBlock Text="{x:Bind Path=Index }"/>
+                        <TextBlock Text="{Binding Mode=OneWay}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>

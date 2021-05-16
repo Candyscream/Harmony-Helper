@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Harmony_Helper;
+using System.Collections.ObjectModel;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -23,6 +24,7 @@ namespace Harmony_Helper
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        ObservableCollection<NoteData> Notes = Harmony.AllNotes;
         Harmony reference = new Harmony(Harmony.Note.C);
         Harmony mine = new Harmony(Harmony.Note.A);
         public MainPage()

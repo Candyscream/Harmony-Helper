@@ -7,79 +7,32 @@ using System.Threading.Tasks;
 
 namespace Harmony_Helper
 {
-    public static class MusicalScale
+
+
+    public class Harmony
     {
-        public static int[] Aeolian = new int[] { 1, 2, 1, 1, 2, 1, 1 };
-        public static int[] Locrian = new int[] { 2, 1, 1, 2, 1, 1, 1 };
-        public static int[] Ionian = new int[] { 1, 1, 2, 1, 1, 2, 1 };
-        public static int[] Dorian = new int[] { 1, 2, 1, 1, 1, 2, 1 };
-        public static int[] Phrygian = new int[] { 1, 2, 1, 1, 1, 2, 1 };
-        public static int[] Lydian = new int[] { 1, 2, 1, 1, 1, 2, 1 };
-        public static int[] Mixolydian = new int[] { 1, 2, 1, 1, 1, 2, 1 };
-        public static int[] Minor = Aeolian;
-        public static int[] Major = Ionian;
-
-        public static int[] ToValue(int[] scale)
-        {
-            int sum = 0;
-            int[] values = new int[7];
-
-            for (int ii = 0; ii < 7; ++ii)
-            {
-                values[ii] = sum;
-                sum += scale[ii];
-            }
-            return values;
-        }
-    }
-
-    class Node
-    {
-        Harmony.Note m_note = Harmony.Note.C;
-        bool m_isMinor = false;
-        int m_offset = 0;
-        string m_chordSymbols = "maj7";
-
-        public Node(Harmony.Note note, int offset, bool isMinor)
-        {
-            m_isMinor = isMinor;
-            m_offset = offset;
-            m_note = note;
-        }
-        public string BaseNote
+        public static ObservableCollection<NoteData> AllNotes
         {
             get
             {
-                return m_note + Harmony.signs[m_offset];
-            }
-        }
-        public string Chord
-        {
-            get
-            {
-                string chordName = m_isMinor ? BaseNote.ToLower() : BaseNote;
-                chordName += m_chordSymbols;
-                return chordName;
+                var collection = new ObservableCollection<NoteData>();
+                for (int ii = -23; ii < 12 * 5; ++ii)
+                {
+                    collection.Add(new NoteData(ii));
+                }
+
+                return collection;
             }
         }
 
-        public string Notes
-        {
-            // TODO
-            get { return BaseNote; }
-        }
-    }
-
-    class Harmony
-    {
         public static readonly Dictionary<int, string> signs = new Dictionary<int, string>()
-        {
+            {
             { -2, "bb" },
             { -1, "b" },
             { 0, "" },
             { 1, "#" },
             { 2, "##" }
-        };
+            };
 
         public enum Note
         {
@@ -97,7 +50,7 @@ namespace Harmony_Helper
             return (Note)(index % 7);
         }
 
-        public ObservableCollection<Node> Nodes = new ObservableCollection<Node>();
+        public ObservableCollection<HarmonyNode> Nodes = new ObservableCollection<HarmonyNode>();
         public ObservableCollection<string> Scale = new ObservableCollection<string>();
         private int[] baseScale;
 
@@ -108,7 +61,7 @@ namespace Harmony_Helper
             foreach (int ii in MusicalScale.ToValue(baseScale))
             {
                 var note = GetNote((int)mean + ii);
-                Nodes.Add(new Node(note, 0, minor));
+                Nodes.Add(new HarmonyNode(note, 0, minor));
                 Scale.Add("" + ii);
             }
         }
