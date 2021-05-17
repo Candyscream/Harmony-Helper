@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Harmony_Helper
 {
-
-
     public class Harmony
     {
         public static ObservableCollection<NoteData> AllNotes
@@ -25,19 +24,9 @@ namespace Harmony_Helper
             }
         }
 
-        public static readonly Dictionary<int, string> signs = new Dictionary<int, string>()
-            {
-            { -2, "bb" },
-            { -1, "b" },
-            { 0, "" },
-            { 1, "#" },
-            { 2, "##" }
-            };
-
         public ObservableCollection<HarmonyNode> Nodes = new ObservableCollection<HarmonyNode>();
-        public ObservableCollection<string> Scale = new ObservableCollection<string>();
+        public ObservableCollection<NoteData> ScaleNotes;
         private int[] baseScale;
-
 
         public Harmony(int meanIndex, int[] scale)
         {
@@ -46,7 +35,15 @@ namespace Harmony_Helper
             int degree = 0;
             foreach (int ii in MusicalScale.ToValue(baseScale))
             {
-                Nodes.Add(new HarmonyNode(meanNote, degree++, baseScale));
+                try
+                {
+                    Nodes.Add(new HarmonyNode(meanNote, degree++, baseScale));
+                }
+                catch (Exception e)
+                {
+                    Debug.Write(e.Message);
+                }
+
             }
         }
 

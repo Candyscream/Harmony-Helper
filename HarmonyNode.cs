@@ -24,8 +24,6 @@ namespace Harmony_Helper
             Augmented7
         }
 
-
-        string m_chordSymbols = "";
         private NoteData meanNote;
         private NoteData thirdNote;
         private NoteData fourthNote;
@@ -35,11 +33,6 @@ namespace Harmony_Helper
 
         private int degree;
         private int[] baseScale;
-
-        int GetStep(int[] scale, int idx)
-        {
-            return baseScale[idx % 7];
-        }
 
         int GetSum(int[] scale, int offset, int steps)
         {
@@ -132,7 +125,7 @@ namespace Harmony_Helper
         {
             get
             {
-                return m_note + Harmony.signs[m_offset];
+                return $"{meanNote.Name} {type}";
             }
         }
 
@@ -145,9 +138,9 @@ namespace Harmony_Helper
         {
             get
             {
-                string chordName = IsMinor ? BaseNote.ToLower() : BaseNote;
-                chordName += m_chordSymbols;
-                return chordName;
+                string mean = meanNote.Name;
+                mean = IsMinor ? mean.ToLower() : mean;
+                return $"{mean} {type}";
             }
         }
 
@@ -155,9 +148,9 @@ namespace Harmony_Helper
         {
             get
             {
-                string chordName = IsMinor ? BaseNote.ToLower() : BaseNote;
-                chordName += m_chordSymbols;
-                return chordName;
+                string numeral = Numerals[degree];
+                numeral = IsMinor ? numeral.ToLower() : numeral;
+                return $"{numeral} {type}";
             }
         }
 

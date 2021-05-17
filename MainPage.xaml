@@ -8,12 +8,18 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Border>
-        <ListBox ItemsSource="{x:Bind Notes}">
+        <ListBox ItemsSource="{x:Bind reference.Nodes}">
             <ListBox.ItemTemplate>
-                <DataTemplate x:DataType="local:NoteData">
-                    <StackPanel Margin="4">
-                        <TextBlock Text="{x:Bind Path=Index }"/>
-                        <TextBlock Text="{Binding Mode=OneWay}"/>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding ActualChord}"/>
+                        <GridView ItemsSource="{Binding Nodes}">
+                            <GridView.ItemTemplate>
+                                <DataTemplate x:DataType="local:NoteData">
+                                    <TextBlock Text="{Binding Name}"/>
+                                </DataTemplate>
+                            </GridView.ItemTemplate>
+                        </GridView>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>

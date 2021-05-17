@@ -15,7 +15,8 @@
         public static int[] Minor = Aeolian;
         public static int[] Major = Ionian;
 
-        public static int[] HM_I = new int[] { T, S, T, T, A, S, T };
+        public static int[] HarmonicMinor = new int[] { T, S, T, T, S, A, S };
+        public static int[] MelodicMinor = new int[] { T, S, T, T, T, T, S };
 
 
 
