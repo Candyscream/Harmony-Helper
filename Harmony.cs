@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Harmony_Helper
 {
-    public class Harmony
+    public class Harmony : INotifyPropertyChanged
     {
         public static ObservableCollection<NoteData> AllNotes
         {
@@ -23,30 +24,41 @@ namespace Harmony_Helper
                 return collection;
             }
         }
+        private ObservableCollection<HarmonyNode> nodes;
+        public ObservableCollection<HarmonyNode> Nodes
+        {
+            get { return nodes; }
+            set { nodes = value; OnPropertyChanged("Nodes"); }
+        }
 
-        public ObservableCollection<HarmonyNode> Nodes = new ObservableCollection<HarmonyNode>();
         public ObservableCollection<NoteData> ScaleNotes;
         private int[] baseScale;
 
         public Harmony(int meanIndex, int[] scale)
         {
             baseScale = scale;
+            var newNodes = new ObservableCollection<HarmonyNode>();
             var meanNote = new NoteData(meanIndex);
             int degree = 0;
             foreach (int ii in MusicalScale.ToValue(baseScale))
             {
                 try
                 {
-                    Nodes.Add(new HarmonyNode(meanNote, degree++, baseScale));
+                    newNodes.Add(new HarmonyNode(meanNote, degree++, baseScale));
                 }
                 catch (Exception e)
                 {
                     Debug.Write(e.Message);
                 }
-
             }
+
+            Nodes = newNodes;
         }
 
-
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
     }
 }

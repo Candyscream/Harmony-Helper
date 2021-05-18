@@ -4,10 +4,7 @@ namespace Harmony_Helper
 {
     public class HarmonyNode
     {
-        NoteData m_note = new NoteData(0);
-        int m_offset = 0;
-
-        ChordType type = 0;
+        ChordType type = ChordType.Unknown;
         enum ChordType
         {
             Unknown,
@@ -24,12 +21,11 @@ namespace Harmony_Helper
             Augmented7
         }
 
-        private NoteData meanNote;
-        private NoteData thirdNote;
-        private NoteData fourthNote;
-        private NoteData fifthNote;
-        private NoteData seventhNote;
-
+        public NoteData meanNote { get; set; }
+        public NoteData thirdNote { get; set; }
+        public NoteData fourthNote { get; set; }
+        public NoteData fifthNote { get; set; }
+        public NoteData seventhNote { get; set; }
 
         private int degree;
         private int[] baseScale;
@@ -133,14 +129,30 @@ namespace Harmony_Helper
         {
             get { return thirdNote.Index - meanNote.Index == 3; }
         }
-
-        public string ActualChord
+        public string ChordLetter
         {
             get
             {
-                string mean = meanNote.Name;
-                mean = IsMinor ? mean.ToLower() : mean;
-                return $"{mean} {type}";
+                string Letter = meanNote.Name;
+                Letter = IsMinor ? Letter.ToLower() : Letter;
+                return Letter;
+            }
+        }
+        public string Chord
+        {
+            get
+            {
+                return $"{ChordLetter} {type}";
+            }
+        }
+
+        public string Degree
+        {
+            get
+            {
+                string numeral = Numerals[degree];
+                numeral = IsMinor ? numeral.ToLower() : numeral;
+                return $"{numeral}";
             }
         }
 
@@ -148,10 +160,13 @@ namespace Harmony_Helper
         {
             get
             {
-                string numeral = Numerals[degree];
-                numeral = IsMinor ? numeral.ToLower() : numeral;
-                return $"{numeral} {type}";
+                return $"{Degree} {type}";
             }
+        }
+
+        public string Type
+        {
+            get { return $"{type}"; }
         }
 
         public string Notes
@@ -174,7 +189,7 @@ namespace Harmony_Helper
 
         public override string ToString()
         {
-            return $"{Numerals[degree]} - {m_note.Name} {type}";
+            return $"{Numerals[degree]} - {meanNote.Name} {type}";
         }
     }
 }

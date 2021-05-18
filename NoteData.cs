@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Harmony_Helper
 {
-    public class NoteData
+    public class NoteData : INotifyPropertyChanged
     {
         public static readonly Dictionary<int, string> NoteNames = new Dictionary<int, string>()
         {
@@ -50,8 +51,13 @@ namespace Harmony_Helper
         {
             Index = idx;
         }
+        private int index = 0;
+        public int Index
+        {
+            get { return index; }
+            set { index = value; OnPropertyChanged("Index"); }
+        }
 
-        public int Index = 0;
         public int Octave
         {
             get { return (int)(Index / 12) - 1; }
@@ -64,13 +70,20 @@ namespace Harmony_Helper
                 int idx = Index;
                 if (Index < 0)
                     idx += 12 * -Octave;
-                return $"{NoteNames[idx % 12]}";
+                var name = $"{NoteNames[idx % 12]}";
+                return name;
             }
         }
 
         public override string ToString()
         {
             return $"{Index}: {Name} ({Octave})";
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

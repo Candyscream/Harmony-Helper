@@ -11,15 +11,40 @@
         <ListBox ItemsSource="{x:Bind reference.Nodes}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding ActualChord}"/>
-                        <GridView ItemsSource="{Binding Nodes}">
-                            <GridView.ItemTemplate>
-                                <DataTemplate x:DataType="local:NoteData">
-                                    <TextBlock Text="{Binding Name}"/>
-                                </DataTemplate>
-                            </GridView.ItemTemplate>
-                        </GridView>
+                    <StackPanel Orientation="Horizontal">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Border Grid.Column="0" BorderThickness="1" BorderBrush="White" Margin="2" Padding="8,4" VerticalAlignment="Stretch">
+                                <StackPanel Orientation="Horizontal">
+                                    <StackPanel VerticalAlignment="Center" Padding="4,0">
+                                        <TextBlock Text="{Binding ChordLetter}" HorizontalAlignment="Center"/>
+                                        <TextBlock Text="{Binding Degree}" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding Type}" VerticalAlignment="Center" Padding="4,0"/>
+                                </StackPanel>
+                            </Border>
+                            <Border Grid.Column="1"  BorderThickness="1" BorderBrush="White" Margin="2" Padding="4" VerticalAlignment="Stretch">
+                                <TextBlock Margin="4" Text="{Binding thirdNote.Name}" VerticalAlignment="Center"/>
+                            </Border>
+                            <Border Grid.Column="2" BorderThickness="1" BorderBrush="White" Margin="2" Padding="4" VerticalAlignment="Stretch">
+                                <TextBlock Margin="4" Text="{Binding thirdNote.Name}" VerticalAlignment="Center"/>
+                            </Border>
+                            <Border Grid.Column="3" BorderThickness="1" BorderBrush="White" Margin="2" Padding="4" VerticalAlignment="Stretch">
+                                <TextBlock  Margin="4" Text="{Binding fifthNote.Name}" VerticalAlignment="Center"/>
+                            </Border>
+                            <Border Grid.Column="4" BorderThickness="1" BorderBrush="White" Margin="2" Padding="4" VerticalAlignment="Stretch">
+                                <TextBlock Margin="4" Text="{Binding seventhNote.Name}" VerticalAlignment="Center"/>
+                            </Border>
+                        </Grid>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
